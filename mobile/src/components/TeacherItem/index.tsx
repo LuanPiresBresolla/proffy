@@ -8,6 +8,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import heartIcon from '../../assets/images/icons/heart-outline.png';
 import unFavorite from '../../assets/images/icons/unfavorite.png';
 import wpp from '../../assets/images/icons/whatsapp.png';
+import api from '../../services/api';
 
 export interface Teacher {
   id: string;
@@ -28,6 +29,10 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
   const [isFavorited, setIsFavorited] = useState(favorited);
 
   const handleToWhatsapp = useCallback(() => {
+    api.post('connections', {
+      user_id: teacher.id,
+    });
+    
     Linking.openURL(`whatsapp://send?phone=${teacher.whatsapp}`)
   }, []);
 
